@@ -1,0 +1,44 @@
+{% extends 'base_2.html' %}
+
+{% block title %}
+    ZZULI | Profile
+{% endblock %}
+
+{% block header_extends %}
+<style type="text/css">
+    #profile-list {
+        padding-bottom: 20em;
+    }
+    #profile-list li{
+        padding-bottom: 1.5em;
+        font-size: 125%;
+    }
+    .profile-username {
+        margin: 1em 0em 0.5em 0em;
+        border-bottom: 1px #111 solid;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="container" id="profile-panel">
+        {% if user.is_authenticated %}
+            <h1 class="profile-username" style="font-size: 500%">Hi, {{ user.username }}</h1>
+            <ul id="profile-list">
+                <li><img src="/static/image/用户.png">&nbsp&nbsp姓名: {{ user.profile.realname }} <a href="">(修改密码)</a></li>
+                <li><img src="/static/image/email.png">&nbsp&nbsp邮箱: {% if user.email %}{{ user.email }}{% else %}未绑定邮箱<a href="#"> (现在绑定)</a>{% endif %}</li>
+                {% if user.profile.submited %}
+                    <li><img src="/static/image/认证.png">&nbsp&nbsp招聘：已提交信息 <a href="{% url 'download' %}">下载信息表格</a></li>
+                {% else %}
+                    <li><img src="/static/image/认证.png">&nbsp&nbsp招聘：未提交信息 <a href="{% url 'recruit' %}">提交招聘信息</a></li>
+                {% endif %}
+                <li><img src="/static/image/时间.png">&nbsp&nbsp上次登陆时间: {{ user.last_login|date:"Y-m-d H:i:s" }}</li>
+            </ul>
+        {% else %}
+            <script type="text/javascript">
+                window.location.href = '/';
+            </script>
+        {% endif %}
+    </div>
+
+{% endblock %}

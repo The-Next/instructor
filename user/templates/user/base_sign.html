@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{% endblock %}
+
+{% block header_extends %}
+<style type="text/css">
+.signhere{
+    margin:12em 0em;
+}
+.signpage{
+    border: 1px solid #fff;
+    background: #fff;
+    border-radius: 20px;
+    padding: 4em 4em 2em 3em;
+}
+.signpic{
+    width: 95%;
+    height: 95%;
+}
+.signlogo{
+    padding-bottom: 2em;
+}
+.signtitle{
+    padding-bottom: 0.5em;
+}
+</style>
+{% endblock %}
+
+{% block page %}
+        <div class="row signhere">
+            <div class="col-md-7 offset-md-1 loginpic">
+                <img src="/static/image/loginback.png" width="100%" height="100%">
+            </div>
+
+            <div class="col-md-3 signpage">
+                <div class="signlogo"><img src="/static/image/zzulilogo.png"></div>
+
+                {% block signpage %}
+                {% if not user.is_authenticated %}
+                    <form method="POST" class="loginform">
+                    <h1 class="h3 mb-3 font-weight-normal signtitle">登陆</h1>
+                    {% csrf_token %}
+                    <span class="text-danger">{{ login_form.non_field_errors }} </span>
+                    {% for field in login_form %}
+                        <!-- <label for="{{ field.id_for_label }}">{{ field.label }}</label> -->
+                        {{ field }}
+                        <p class="text-danger">{{ field.errors.as_text }}</p>
+                    {% endfor %}
+                    <div>没有账号？<a href="{% url 'register' %}">创建一个</a></div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+                    </form>
+                {% else %}
+                        <script type="text/javascript">
+                            window.location.href = '/';
+                        </script>
+                {% endif %}
+                {% endblock %}
+            </div>
+        </div>
+
+{% endblock %}

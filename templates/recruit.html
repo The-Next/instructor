@@ -1,0 +1,457 @@
+{% extends 'base_2.html' %}
+{% load static %}
+
+{% block title %}
+    ZZULI | Recruit
+{% endblock %}
+
+{% block nav_recruit_active %}
+    active
+{% endblock %}
+
+{% block header_extends %}
+<script type="text/javascript">
+
+
+</script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+            <div style="padding: 60px 30px">
+                <div class="alert alert-info" role="alert">
+                  <h4 class="alert-heading">欢迎加入郑州轻工业学院！</h4>
+                  <p>我也不知道这里应该写什么！我也不知道这里应该写什么！我也不知道这里应该写什么！我也不知道这里应该写什么！我也不知道这里应该写什么！我也不知道这里应该写什么！我也不知道这里应该写什么！我也不知道这里应该写什么！我也不知道这里应该写什么！我也不知道这里应该写什么！</p>
+                  <hr>
+                  <p class="mb-0">请根据个人实际情况填写如下信息，请确保各项信息准确无误。</p>
+                </div>
+                            <!-- method="post" action="/post2/" enctype="multipart/form-data" name="reg_testdate" -->
+            {% if user.is_authenticated %}
+                {% if user.profile.submited %}
+                    <h1>您已成功报名！</h1>
+                    {% else %}
+            <form method="post" enctype="multipart/form-data" name="reg_testdate">
+                {% csrf_token %}
+                <br>
+                <h4 style="font-weight: bold;">个人照片</h4>
+                <hr>
+
+                <div class="form-group">
+                    <label class="bmd-label-floating">照片上传</label>
+                    <input type="file" class="form-control-file" name="img">
+                    <small class="text-muted">请在这里上传您的照片</small>
+                    {% if message16 %}
+                            <div class="text-danger">{{ message16 }}</div>
+                    {% endif %}
+                </div>
+
+                <br><br>
+                <h4 style="font-weight: bold;">基本信息</h4>
+                <hr>
+                <div class="form-inline">
+                    <div class="bmd-form-group col-md-4">
+                        <label class="bmd-label-floating">姓名</label>
+                        <input type="text" class="form-control" name="uname">
+                        <span class="bmd-help">请输入您的姓名。</span>
+                        {% if message1 %}
+                            <div class="text-danger">{{ message1 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="bmd-form-group col-md-4">
+                        <label class="bmd-label-floating">民族</label>
+                        <input type="text" class="form-control" name="minzu">
+                        <span class="bmd-help">请输入您的民族。</span>
+                        {% if message6 %}
+                             <div class="text-danger">{{ message6 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="bmd-form-group col-md-4">
+                        <label class="bmd-label-floating">籍贯</label>
+                        <input type="text" class="form-control" name="jg">
+                        <span class="bmd-help">请输入您的籍贯。</span>
+                        {% if message5 %}
+                             <div class="text-danger">{{ message5 }}</div>
+                        {% endif %}
+                    </div>
+                </div><br>
+
+                <div class="form-inline">
+                    <div class="bmd-form-group col-md-4">
+                        <label class="bmd-label-floating">手机</label>
+                        <input type="text" class="form-control" name="phone">
+                        <span class="bmd-help">请输入您的手机号码。</span>
+                        {% if message14 %}
+                            <div class="text-danger">{{ message14 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="bmd-form-group col-md-4">
+                        <label class="bmd-label-floating">电子邮箱</label>
+                        <input type="text" class="form-control" name="Email">
+                        <span class="bmd-help">请输入您的邮箱地址。</span>
+                        {% if message13 %}
+                             <div class="text-danger">{{ message13 }}</div>
+                        {% endif %}
+                    </div>
+
+
+                </div><br>
+
+                    <div class="form-inline">
+                         <div class="bmd-form-group col-md-4">
+                            <label class="bmd-label-floating">生日日期</label>
+                            <select class="form-control" name="YYYY" onchange="YYYYDD(this.value)">
+                                <option value=""></option>
+                            </select>
+                            <select class="form-control" name="MM" onchange="MMDD(this.value)">
+                                <option value=""></option>
+                            </select>
+                            <select class="form-control" name="DD">
+                                    <option value=""></option>
+                            </select>
+                        </div>      
+
+                        <div class="bmd-form-group col-md-2">
+                            <label class="bmd-label-floating">政治面貌</label>
+                            <select class="form-control" name="zzmm">
+                                <option value="">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
+                                <option value="中共党员">中共党员</option>
+                                <option value="共青团员">共青团员</option>
+                                <option value="群众">群众</option>
+                            </select>
+                            {% if message7 %}
+                                <div class="text-danger">{{ message7 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="bmd-form-group col-md-2">
+                            <label class="bmd-label-floating">性别</label>
+                            <select class="form-control" name="sex">
+                                <option value="">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
+<!--                             {% if message7 %}
+                                <div class="text-danger">{{ message7 }}</div>
+                            {% endif %} -->
+                        </div>
+                    </div><br>
+
+                <br><br><br>
+                <h4 style="font-weight: bold;">学历&工作</h4>
+                <hr>
+                <div class="form-inline">
+                    <div class="bmd-form-group col-md-3" style="padding-right: 30px">
+                        <label class="bmd-label-floating">专业(方向)</label>
+                        <input type="text" class="form-control" name="ufangxiang">
+                        <span class="bmd-help">请填写您的主修专业。</span>
+                        {% if message4 %}
+                             <div class="text-danger">{{ message4 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-inline col-md-9">
+                    <div class="form-group" style="padding-right: 30px">
+                        <label class="bmd-label-floating">最高学历</label>
+                        <select class="form-control" name="topxl">
+                            <option value="">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
+                            <option value="本科">本科</option>
+                            <option value="研究生">研究生</option>
+                        </select>
+                        {% if message8 %}
+                              <div class="text-danger">{{ message8 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group" style="padding-right: 30px">
+                        <label class="bmd-label-floating">最高学位</label>
+                        <select class="form-control" name="topxw">
+                            <option value="">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
+                            <option value="学士">学士</option>
+                            <option value="硕士">硕士</option>
+                            <option value="博士">博士</option>
+                        </select>
+                        {% if message9 %}
+                              <div class="text-danger">{{ message9 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group" style="padding-right: 30px">
+                        <label class="bmd-label-floating">外语水平：</label>
+                        <select class="form-control" name="Ewater">
+                            <option value="">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
+                            <option value="CET-4">CET-4</option>
+                            <option value="CET-6">CET-6</option>
+                            <option value="CET-8">CET-8</option>
+                        </select>
+                        {% if message10 %}
+                             <div class="text-danger">{{ message10 }}</div>
+                        {% endif %}
+                    </div>
+                    </div>
+                </div><br>
+
+                <div class="bmd-form-group" style="margin:0 5% 0 1%">
+                        <label class="bmd-label-floating">现工作单位</label>
+                        <input type="text" class="form-control" name="nowwork">
+                        <span class="bmd-help">请填写您的现工作单位。</span>
+                        {% if message11 %}
+                             <div class="text-danger">{{ message11 }}</div>
+                        {% endif %}
+                </div><br>
+
+                <div class="form-inline">
+                    <div class="bmd-form-group col-md-3">
+                        <label class="bmd-label-floating">岗位类别</label>
+                        <input type="text" class="form-control" name="ug">
+                        <span class="bmd-help">请填写您的岗位类别。</span>
+                        {% if message2 %}
+                             <div class="text-danger">{{ message2 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="bmd-form-group col-md-3">
+                        <label class="bmd-label-floating">部门</label>
+                        <input type="text" class="form-control" name="ument">
+                        <span class="bmd-help">请填写您的所属部门。</span>
+                        {% if message3 %}
+                             <div class="text-danger">{{ message3 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="bmd-form-group col-md-3">
+                        <label class="bmd-label-floating">职称/职务</label>
+                        <input type="text" class="form-control" name="zhiwu">
+                        <span class="bmd-help">请填写您的职称/职务。</span>
+                        {% if message12 %}
+                             <div class="text-danger">{{ message12 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="bmd-form-group col-md-3">
+                        <label class="bmd-label-floating">参加工作时间</label>
+                        <input type="text" class="form-control" name="GYYYM">
+                        <span class="bmd-help">请按YYYY年MM月格式填写。</span>
+                        {% if message15 %}
+                             <div class="text-danger">{{ message15 }}</div>
+                        {% endif %}
+                    </div>
+                </div><br>
+
+
+                <br><br>
+                <h4 style="font-weight: bold;">学习经历</h4>
+                <hr>
+                <button type="button" onclick="add('stuexp');" class="btn btn-outline-dark">加一行</button>
+                <div id="insert_1">
+                    <div class="form-inline" id="stuexp" hidden>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_1">
+                            <input type="text" class="form-control"  placeholder="YYYY年MM月-" name="sdt">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_2">
+                            <input type="text" class="form-control" placeholder="院校名称" name="grd">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_3">
+                            <input type="text" class="form-control" placeholder="所修专业(方向)" name="zyfx">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_4">
+                            <input type="text" class="form-control" placeholder="学历、学位" name="xxw">
+                        </div>
+                    </div>
+                    <div class="form-inline" id="stuexp0">
+                        <div class="bmd-form-group col-lg-3" id="copydiv_1">
+                            <label >起止时间</label>
+                            <input type="text" class="form-control"  placeholder="YYYY年MM月-" name="sdt0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_2">
+                            <label >毕业院校</label>
+                            <input type="text" class="form-control" placeholder="院校名称" name="grd0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_3">
+                            <label >专业(方向)</label>
+                            <input type="text" class="form-control" placeholder="所修专业(方向)" name="zyfx0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_4">
+                            <label >学历、学位</label>
+                            <input type="text" class="form-control" placeholder="学历、学位" name="xxw0">
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <br><br>
+                <h4 style="font-weight: bold;">工作经历</h4>
+                <hr>
+                <button type="button" onclick="add('jobexp');" class="btn btn-outline-dark">加一行</button>
+                <div id="insert_2">
+                    <div class="form-inline" id='jobexp' hidden>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_1">
+                            <input type="text" class="form-control"  placeholder="YYYY年MM月-" name="ym">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_2">
+                            <input type="text" class="form-control"  placeholder="工作单位" name="gzdw">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_3">
+                            <input type="text" class="form-control"  placeholder="从事工作" name="csgz">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_4">
+                            <input type="text" class="form-control"  placeholder="职称、职务" name="zczw">
+                        </div>
+                    </div>
+                    <div class="form-inline" id='jobexp0'>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_1">
+                            <label >起止时间</label>
+                            <input type="text" class="form-control"  placeholder="YYYY年MM月-" name="ym0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_2">
+                            <label >工作单位</label>
+                            <input type="text" class="form-control"  placeholder="工作单位" name="gzdw0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_3">
+                            <label >从事工作</label>
+                            <input type="text" class="form-control"  placeholder="从事工作" name="csgz0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_4">
+                            <label >职称、职务</label>
+                            <input type="text" class="form-control"  placeholder="职称、职务" name="zczw0">
+                        </div>
+                    </div>
+                </div><br>
+
+                <br><br>
+                <h4 style="font-weight: bold;">业绩及获奖情况</h4><hr><br>
+
+                <h5 style="font-weight: bold;">发表研究论文情况</h5>
+                <hr>
+                <button type="button" onclick="add('pubexp');" class="btn btn-outline-dark">加一行</button>
+                <div id="insert_3">
+                    <div class="form-inline" id='pubexp' hidden>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_1">
+                            <input type="text" class="form-control"  placeholder="YYYY年" name="lwyear">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_2">
+                            <input type="text" class="form-control"  placeholder="论文题目" name="lwtm">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_3">
+                            <input type="text" class="form-control"  placeholder="刊物名称" name="kwmc">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_4">
+                            <input type="text" class="form-control"  placeholder="个人名次" name="grmc">
+                        </div>
+                    </div>
+                    <div class="form-inline" id='pubexp0'>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_1">
+                            <label >发表时间</label>
+                            <input type="text" class="form-control"  placeholder="YYYY年" name="lwyear0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_2">
+                            <label >论文题目</label>
+                            <input type="text" class="form-control"  placeholder="论文题目" name="lwtm0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_3">
+                            <label >刊物名称</label>
+                            <input type="text" class="form-control"  placeholder="刊物名称" name="kwmc0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_4">
+                            <label >个人名次</label>
+                            <input type="text" class="form-control"  placeholder="个人名次" name="grmc0">
+                        </div>
+                    </div>
+                </div><br>
+
+                <h5 style="font-weight: bold;">项目(课题)、成果</h5>
+                <hr>
+                <button type="button" onclick="add('proexp');" class="btn btn-outline-dark">加一行</button>
+                <div id="insert_4">
+                    <div class="form-inline" id='proexp' hidden>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_1">
+                            <input type="text" class="form-control"  placeholder="YYYY年" name="xmyear">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_2">
+                            <input type="text" class="form-control"  placeholder="项目(成果)名称" name="xmmc">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_3">
+                            <input type="text" class="form-control"  placeholder="项目(成果)等级" name="xmdj">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_4">
+                            <input type="text" class="form-control"  placeholder="个人名次" name="xmgr">
+                        </div>
+                    </div>
+                    <div class="form-inline" id='proexp0'>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_1">
+                            <label >时间</label>
+                            <input type="text" class="form-control"  placeholder="YYYY年" name="xmyear0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_2">
+                            <label >项目(成果)名称</label>
+                            <input type="text" class="form-control"  placeholder="项目(成果)名称" name="xmmc0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_3">
+                            <label >项目(成果)等级</label>
+                            <input type="text" class="form-control"  placeholder="项目(成果)等级" name="xmdj0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_4">
+                            <label >个人名次</label>
+                            <input type="text" class="form-control"  placeholder="个人名次" name="xmgr0">
+                        </div>
+                    </div>
+                </div><br>
+
+                <h5 style="font-weight: bold;">获得奖励情况</h5>
+                <hr>
+                <button type="button" onclick="add('winexp');" class="btn btn-outline-dark">加一行</button>
+                <div id="insert_5">
+                    <div class="form-inline" id='winexp' hidden>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_1">
+                            <input type="text" class="form-control"  placeholder="YYYY年" name="pryear">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_2">
+                            <input type="text" class="form-control"  placeholder="奖项名称" name="pxmmc">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_3">
+                            <input type="text" class="form-control"  placeholder="获奖级别" name="hjhb">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_4">
+                            <input type="text" class="form-control"  placeholder="个人名次" name="prgr">
+                        </div>
+                    </div>
+                    <div class="form-inline" id='proexp0'>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_1">
+                            <label >获奖时间</label>
+                            <input type="text" class="form-control"  placeholder="YYYY年" name="pryear0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_2">
+                            <label >奖项名称</label>
+                            <input type="text" class="form-control"  placeholder="奖项名称" name="pxmmc0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_3">
+                            <label >获奖级别</label>
+                            <input type="text" class="form-control"  placeholder="获奖级别" name="hjhb0">
+                        </div>
+                        <div class="bmd-form-group col-lg-3" id="copydiv_4">
+                            <label >个人名次</label>
+                            <input type="text" class="form-control"  placeholder="个人名次" name="prgr0">
+                        </div>
+                    </div>
+                </div><br>
+
+                <div class="form-group col-lg-12" style="margin-right: 250px">
+                    <h5 class="bmd-label-floating">担任学生干部情况</h5>
+                    <textarea class="form-control" rows="6" name="textname"></textarea>
+                </div><br>
+
+                <br><br>
+                <button type="submit" class="btn btn-default btn-block">提交</button>
+            </form>
+                    {% endif %}
+            {% else %}
+                <h1><a href="{% url 'login' %}">请先登陆</a></h1>
+                {% endif %}
+        </div>
+    </div>
+
+    <script type="text/javascript" src="{%static 'js/recruit.js' %}"></script>
+
+{% endblock%}

@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-material-design.min.css' %}">
+
+    {% block header_extends %}{% endblock %}
+</head>
+
+
+<body> 
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #5a140c">
+        <a class="navbar-brand" href="{% url 'index' %}">ZZULI | Instructor</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {% block nav_index_active %}{% endblock %}">
+                    <a class="nav-link" href="{% url 'index' %}">首页</a>
+                </li>
+                <li class="nav-item {% block nav_recruit_active %}{% endblock %}">
+                    <a class="nav-link" href="{% url 'recruit' %}">辅导员招聘</a>
+                </li>
+                <li class="nav-item {% block nav_dasai_active %}{% endblock %}">
+                    <a class="nav-link" href="#">辅导员大赛</a>
+                </li>
+                <li class="nav-item {% block nav_test_active %}{% endblock %}">
+                    <a class="nav-link" href="{% url 'test' %}">test</a>
+                </li>
+            </ul>
+
+            {% if user.is_authenticated %} 
+                <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">
+                Welcome,&nbsp{{ user.username }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{% url 'profile' %}">查看账户</a>
+                    {% if user.is_staff or user.is_superuser %}
+                        <a class="dropdown-item" href="{% url 'admin:index' %}">后台管理</a>
+                    {% endif %}
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'logout' %}?from={{ request.get_full_path }}">登出</a>
+                </div>
+            </div>
+            {% else %}
+                    <a class="btn btn-light my-2 my-sm-0" href="{% url 'login' %}?from={{ request.get_full_path }}">登陆</a>
+                    <a class="btn btn-light my-2 my-sm-0" href="{% url 'register' %}?from={{ request.get_full_path }}">注册</a>
+            {% endif %}
+         </div>
+    </nav>
+
+    
+    {% block page %}{% endblock %}
+
+    <div class="page-bottom">
+        <div class="container">
+            <div class="row">
+                
+                <div class="logo col-sm-6 col-md-6">
+                    <img alt src="/static/image/logo.png">
+                </div>
+
+                <div class="col-md-6 col-lg-2 d-sm-up">
+                    <div class="content">
+                        <h4 class="title">关于本站</h4>
+                        <p>基于Django开发</p>
+                        <p>由郑轻软院制作</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 d-none d-md-none d-lg-block">
+                    <div class="content">
+                        <h4 class="title">联系我们</h4>
+                        <p>拍狗俱乐部</p>
+                        <p>郑轻软件学院</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 d-none d-md-none d-lg-block">
+                    <div class="content">
+                        <h4 class="title">相关连接</h4>
+                        <p>郑州轻工业学院</p>
+                        <p>郑轻软件学院</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+            <div class="copyright">
+                <span>copyright © Pygo Club</span>
+            </div>
+
+    </div>
+
+    <script type="text/javascript" src="{%static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+    <script type="text/javascript" src="{%static 'js/popper.js' %}"></script>
+    <script type="text/javascript" src="{%static 'js/bootstrap-material-design.min.js' %}"></script>
+
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+</body>
+</html>
+
+

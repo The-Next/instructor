@@ -1,0 +1,26 @@
+{% extends 'base_sign.html' %}
+
+{% block title %}
+    ZZULI | Login
+{% endblock %}
+
+{% block signpage %}
+{% if not user.is_authenticated %}
+    <form method="POST" class="loginform">
+        <h1 class="h3 mb-3 font-weight-normal signtitle">登陆</h1>
+        {% csrf_token %}
+        <span class="text-danger">{{ login_form.non_field_errors }} </span>
+        {% for field in login_form %}
+            <!-- <label for="{{ field.id_for_label }}">{{ field.label }}</label> -->
+            {{ field }}
+            <p class="text-danger">{{ field.errors.as_text }}</p>
+        {% endfor %}
+        <div>没有账号？<a href="{% url 'register' %}">创建一个</a></div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+    </form>
+{% else %}
+        <script type="text/javascript">
+            window.location.href = '/';
+        </script>
+{% endif %}
+{% endblock %}

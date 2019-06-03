@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    ZZULI | Instructor
+{% endblock %}
+
+
+{% block header_extends %}
+<link rel="stylesheet" href="{% static 'base.css' %}">
+<script> 
+count=0;
+
+function add(){
+    if(count<7){
+        count++;
+        var newone = $('#copyme').clone().attr('id', 'copyme'+count);  //need fix
+        $("#insert").append(newone);
+        count++;
+    }
+}
+
+</script> 
+
+
+{% endblock %}
+
+{% block page %}
+<div class="container-fluid" style="padding: 0px 0px">
+  	<div class="header-banner">
+        <h1 class="header-content">
+            Hello, ZZULI !
+        </h1>
+    </div>
+</div>
+
+<div class="container col-sm-12 col-md-10 col-xl-8" style="padding: 0px 0px">
+	<div class="card">
+		{% block content %}
+        <button type="button" onclick="add()" class="btn btn-outline-dark">加一行</button>
+        <div id="insert">
+            <div class="form-group col-md-6" id="copyme">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+            </div>
+        </div>
+
+        {% endblock %}
+        </div>
+</div>
+{% endblock%}

@@ -1,0 +1,25 @@
+{% extends 'base_sign.html' %}
+
+{% block title %}
+    ZZULI | Register
+{% endblock %}
+
+{% block signpage %}
+{% if not user.is_authenticated %}
+    <form method="POST">
+        <h1 class="h3 mb-3 font-weight-normal signtitle">注册</h1>
+        {% csrf_token %}
+        {% for field in reg_form %}
+            <!-- <label for="{{ field.id_for_label }}">{{ field.label }}</label> -->
+            {{ field }}
+            <p class="text-danger">{{ field.errors.as_text }}</p>
+        {% endfor %}
+        <span class="text-danger">{{ login_form.non_field_errors }}</span>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+    </form>
+{% else %}
+        <script type="text/javascript">
+            window.location.href = '/';
+        </script>
+{% endif %}
+{% endblock %}
